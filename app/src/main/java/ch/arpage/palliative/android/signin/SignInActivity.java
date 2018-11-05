@@ -5,12 +5,11 @@ import android.accounts.AccountManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import ch.arpage.palliativeappandroid.R;
 import io.swagger.client.auth.HttpBasicAuth;
@@ -32,9 +31,7 @@ public class SignInActivity extends AppCompatActivity {
         AccountManager accountManager = AccountManager.get(this);
         Account[] accounts = accountManager.getAccountsByType(getString(R.string.account_type));
         boolean isNew = true;
-        Log.i(LOG_TAG, "Account type: " + getString(R.string.account_type));
         for (Account account : accounts) {
-            Log.i(LOG_TAG, "Account: " + account.name + " : " + account.type);
             if (account.name.equals(username)) {
                 isNew = false;
             }
@@ -53,7 +50,7 @@ public class SignInActivity extends AppCompatActivity {
         final EditText editText1 = (EditText) findViewById(R.id.editText1);
         final EditText editText2 = (EditText) findViewById(R.id.editText2);
         Button button = (Button) findViewById(R.id.button);
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        final TextView popup = (TextView) findViewById(R.id.popUp);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,27 +63,41 @@ public class SignInActivity extends AppCompatActivity {
 
         String selectedUsername = getIntent().getStringExtra(USERNAME_TAG);
         // Check if there is an intent from AccountPickerActivity.
-        // If yes, then use it. Else, proceed with the check on the existing accounts.
         if (selectedUsername != null) {
-
             editText1.setText(selectedUsername);
-
         }
-            AccountManager accountManager = AccountManager.get(this);
-            Account[] accounts = accountManager.getAccountsByType(getString(R.string.account_type));
-            int numberOfAccounts = accounts.length;
-            // If multiple accounts already exist, allow the user to pick one by sending an explicit
-            // intent to the activity AccountPickerActivity.java
-            if (numberOfAccounts > 1) {
-                spinner.setVisibility(View.VISIBLE);
-                spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+        AccountManager accountManager = AccountManager.get(this);
+        Account[] accounts = accountManager.getAccountsByType(getString(R.string.account_type));
+        final int numberOfAccounts = accounts.length;
+        final String first_account_name = accounts[0].name;
+        if (numberOfAccounts > 0) {
+            editText1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    popup.setVisibility(View.VISIBLE);
+                    if (numberOfAccounts == 1) {
+                        popup.setText(first_account_name);
+                        popup.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                editText1.setText(first_account_name);
+                                popup.setVisibility(View.GONE);
+
+                            }
+                        });
+                    } else {
+                        popup.setText("Select account");
+                        popup.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent pickYourAccount = new Intent(view.getContext(), AccountPickerActivity.class);
+                                startActivity(pickYourAccount);
+                            }
+                        });
                     }
-                });
-                Intent pickYourAccount = new Intent(this, AccountPickerActivity.class);
-                startActivity(pickYourAccount);
-            }
+                }
+            });
+        }
     }
 }
