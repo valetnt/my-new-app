@@ -1,0 +1,50 @@
+
+# SOrgPatient
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**ahvNumber** | **String** |  |  [optional]
+**birthdate** | [**Calendar**](Calendar.md) |  |  [optional]
+**comms** | [**List&lt;SComm&gt;**](SComm.md) |  |  [optional]
+**country** | **String** |  |  [optional]
+**createDate** | [**Calendar**](Calendar.md) |  |  [optional]
+**createUser** | **Long** |  |  [optional]
+**deleted** | **Boolean** |  |  [optional]
+**employerAddress** | **String** |  |  [optional]
+**employerLocality** | **String** |  |  [optional]
+**employerName** | **String** |  |  [optional]
+**employerZip** | **String** |  |  [optional]
+**evitaCustomerNo** | **String** |  |  [optional]
+**firstName** | **String** |  |  [optional]
+**flags** | **String** |  |  [optional]
+**gender** | **Integer** |  |  [optional]
+**groupIds** | **List&lt;Integer&gt;** |  |  [optional]
+**guardianAddrress** | **String** |  |  [optional]
+**guardianLocality** | **String** |  |  [optional]
+**guardianName** | **String** |  |  [optional]
+**guardianPhone** | **String** |  |  [optional]
+**guardianZip** | **String** |  |  [optional]
+**hpv** | **Integer** |  |  [optional]
+**id** | [**SOrgPatientPK**](SOrgPatientPK.md) |  |  [optional]
+**inactive** | **Boolean** |  |  [optional]
+**lastName** | **String** |  |  [optional]
+**lastSeen** | [**Calendar**](Calendar.md) |  |  [optional]
+**locality** | **String** |  |  [optional]
+**medicId** | **String** |  |  [optional]
+**orgMedicId** | **Long** |  |  [optional]
+**orgName** | **String** |  |  [optional]
+**orgPatientId** | **String** |  |  [optional]
+**poBox** | **String** |  |  [optional]
+**profession** | **String** |  |  [optional]
+**socialInsuranceNumber** | **String** |  |  [optional]
+**state** | **String** |  |  [optional]
+**street** | **String** |  |  [optional]
+**title** | **String** |  |  [optional]
+**updateDate** | [**Calendar**](Calendar.md) |  |  [optional]
+**updateUser** | **Long** |  |  [optional]
+**valid** | **Boolean** |  |  [optional]
+**zip** | **String** |  |  [optional]
+
+
+
